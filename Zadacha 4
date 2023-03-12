@@ -1,0 +1,24 @@
+#Вывести текст построчно по 40 символов в строке без переносов.
+def line_by_line(line, width=40):
+    whitespace = set(" \n\t\r")
+    length = len(line)
+    start = 0
+
+    while start < (length - width):
+        end = start + width + 1
+        temp = line[start:end]
+        try:
+            end = start + temp.index('\n')
+        except ValueError:
+            for i, ch in enumerate(reversed(temp)):
+                if ch in whitespace:
+                    end -= i
+                    break
+        yield line[start:end]
+        start = end + 1
+    yield line[start:]
+
+
+text = "Так говорила в июле 1805 года известная Анна Павловна Шерер, фрейлина и приближенная императрицы Марии Феодоровны, встречая важного и чиновного князя Василия, первого приехавшего на ее вечер. Анна Павловна кашляла несколько дней, у нее был грипп, как она говорила (грипп был тогда новое слово, употреблявшееся только редкими)."
+for line in line_by_line(text, 40):
+    print(line)
