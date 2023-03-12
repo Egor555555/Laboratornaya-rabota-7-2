@@ -1,23 +1,38 @@
 #Вводится номер банковской карты. Определить платёжную систему.
 
-import re
-
 def payment_system(card):
     if len(card) < 12 or len(card) > 19:
         print('Неправильно набран номер карты')
         return
 
-    pay_system = {'2': 'МИР',
-              '4': 'Visa',
-              '5[1-5]': 'Mastercard',
-              '36|38': 'Diners Club',
-              '6011|65': 'Discover',
-              '35': 'JCB',
-              '34|37': 'American Express',
-              '6': 'China UnionPay',
-              '7': 'УЭК'}
-    system = next(v for k, v in pay_system.items() if re.match(k, card))
-    print(system)
-
+    for i in range(len(card)):
+        if card[0]=='2':
+            print('Мир')
+            break
+        elif card[0]=='4':
+            print('Visa')
+            break
+        elif card[0]=='5':
+            print('Mastercard')
+            break
+        elif (card[0]=='3' and card[1]=='6')or(card[0]=='3' and card[1]=='8'):
+            print('Diners Club')
+            break
+        elif (card[0]=='6' and card[1]=='0')or(card[0]=='6' and card[1]=='5'):
+            print('Discover')
+            break
+        elif (card[0]=='3' and card[1]=='5'):
+            print('JCB')
+            break
+        elif (card[0]=='3' and card[1]=='4')or(card[0]=='3' and card[1]=='7'):
+            print('American Express')
+            break
+        elif card[0]=='6':
+            print('China UnionPay')
+            break
+        elif card[0]=='7':
+            print('УЭК')
+            break
+            
 card = input('Введите номер карты: ')
 payment_system(card)
